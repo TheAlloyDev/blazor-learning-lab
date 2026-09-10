@@ -4,15 +4,15 @@ This file holds the next learning tasks for this project.
 
 ## Next Form Task
 
-- Check `Blazor-Forms-Learning-Notes.md` and convert my Add Recipe page to a proper validated `EditForm`.
-- Use `Blazor-Forms-Learning-Notes.md` as the pattern and explain each form change before editing.
+- Check `../Notes/Blazor-Forms-Learning-Notes.md` and convert my Add Recipe page to a proper validated `EditForm`.
+- Use `../Notes/Blazor-Forms-Learning-Notes.md` as the pattern and explain each form change before editing.
 
 ## Agent Prompt
 
 Use this prompt when you are ready:
 
 ```text
-Check Blazor-Forms-Learning-Notes.md and convert my Add Recipe page to a proper validated EditForm. Use Blazor-Forms-Learning-Notes.md as the pattern and explain each form change before editing.
+Check ../Notes/Blazor-Forms-Learning-Notes.md and convert my Add Recipe page to a proper validated EditForm. Use ../Notes/Blazor-Forms-Learning-Notes.md as the pattern and explain each form change before editing.
 ```
 
 ## Why keep this file?
