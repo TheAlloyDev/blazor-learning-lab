@@ -1,0 +1,29 @@
+@page "/recipe/{Id:int}"
+
+<PageTitle>Recipe Details</PageTitle>
+
+@if (Recipe is null)
+{
+    <p>Recipe not found.</p>
+}
+else
+{
+    <h1>@Recipe.Name</h1>
+    <p>@Recipe.Description</p>
+}
+
+<p>
+    <NavLink href="/home">Back to Recipes</NavLink>
+</p>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Recipe? Recipe { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Recipe = RecipeStore.Recipes.FirstOrDefault(recipe => recipe.Id == Id);
+    }
+}

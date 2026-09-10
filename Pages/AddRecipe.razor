@@ -1,0 +1,35 @@
+@page "/addrecipe"
+@inject NavigationManager NavManager
+
+<PageTitle>Add Recipe</PageTitle>
+
+<h1>Add Recipe</h1>
+
+<input @bind="recipeName" placeholder="Recipe Name" />
+<br />
+<textarea @bind="recipeDescription" placeholder="Recipe Description"></textarea>
+<br />
+<button @onclick="SubmitRecipe">Submit</button>
+
+<p>
+    <NavLink href="/home">Back to Recipes</NavLink>
+</p>
+
+@code {
+    private string recipeName = string.Empty;
+    private string recipeDescription = string.Empty;
+
+    private void SubmitRecipe()
+    {
+        var nextId = RecipeStore.Recipes.Count == 0 ? 1 : RecipeStore.Recipes.Max(recipe => recipe.Id) + 1;
+
+        RecipeStore.Recipes.Add(new Recipe
+        {
+            Id = nextId,
+            Name = recipeName,
+            Description = recipeDescription
+        });
+
+        NavManager.NavigateTo("/home");
+    }
+}

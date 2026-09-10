@@ -1,0 +1,32 @@
+﻿@page "/"
+@page "/home"
+
+<PageTitle>Home</PageTitle>
+
+<h1>RecipeManagerApp</h1>
+
+<h3>Recipe List</h3>
+
+<ul>
+    @foreach (var recipe in Recipes)
+    {
+        <li>
+            <strong>@recipe.Name</strong> - @recipe.Description
+            <br />
+            <NavLink href="@($"/recipe/{recipe.Id}")" Match="NavLinkMatch.Prefix">View Details</NavLink>
+        </li>
+    }
+</ul>
+
+<p>
+    <NavLink href="/addrecipe">Add Recipe</NavLink>
+</p>
+
+@code {
+    private List<Recipe> Recipes => RecipeStore.Recipes;
+}
+
+
+
+
+

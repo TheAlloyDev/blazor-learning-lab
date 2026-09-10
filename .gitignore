@@ -1,0 +1,19 @@
+# Build output
+bin/
+obj/
+
+# User-specific IDE files
+.vs/
+*.user
+*.suo
+
+# VS Code local workspace settings if created later
+.vscode/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# OS-generated files
+.DS_Store
+Thumbs.db
