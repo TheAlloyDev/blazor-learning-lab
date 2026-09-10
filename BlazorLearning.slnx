@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GLFeedbackApp/GLFeedbackApp.csproj" />
+  <Project Path="RecipeManagerApp/RecipeManagerApp.csproj" />
+</Solution>
