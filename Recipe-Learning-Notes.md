@@ -328,3 +328,64 @@ It is the relationship between:
 - events and binding with `@onclick` and `@bind`
 
 That combination is the core of a basic Blazor app.
+
+## 11. `NavLink` vs `NavigationManager` vs `<a>`
+
+These three can all move the user to another page, but they are not used for the same reason.
+
+### `NavLink`
+
+Example:
+
+```razor
+<NavLink href="/addrecipe">Add Recipe</NavLink>
+```
+
+Use it when:
+
+- you want a visible navigation link in the UI
+- the user should click it directly
+- you want Blazor to keep SPA-style navigation
+- you want active-link styling support
+
+In this project, `NavLink` is used on the Home page and in the nav menu.
+
+### `NavigationManager`
+
+Example:
+
+```csharp
+NavManager.NavigateTo("/home");
+```
+
+Use it when:
+
+- code decides when navigation should happen
+- navigation happens after an action, such as submit, save, delete, or login
+- you do not want the user clicking a normal link first
+
+In this project, `NavigationManager` is used after submitting the Add Recipe form.
+
+### Plain `<a>` tag
+
+Example:
+
+```html
+<a href="/home">Home</a>
+```
+
+Use it carefully.
+
+In a Blazor app, a plain `<a>` can still work, but it is usually not the preferred option for internal app navigation because:
+
+- it does not give you `NavLink` active-state behavior
+- it is easier to drift away from Blazor navigation conventions
+- it is better suited to external links or simple static HTML cases
+
+### Quick rule
+
+Use this shortcut:
+
+- `NavLink` for clickable app navigation in the markup
+- `NavigationManager` for navigation triggered by C# code
+- `<a>` mostly for external URLs or simple non-Blazor cases
