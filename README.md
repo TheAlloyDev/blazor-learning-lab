@@ -23,3 +23,7 @@ dotnet run --project GLFeedbackApp\GLFeedbackApp.csproj
 
 A single root-level `.gitignore` covers build output (`bin/`, `obj/`) for all
 projects in this repo.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
