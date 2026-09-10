@@ -1,0 +1,28 @@
+@page "/feedback/list"
+@inject FeedbackState FeedbackState
+
+<PageTitle>Feedback List</PageTitle>
+
+<h1>Submitted Feedback</h1>
+
+@if (FeedbackState.Entries.Count == 0)
+{
+    <p>No feedback has been submitted yet.</p>
+}
+else
+{
+    <ul>
+        @foreach (var item in FeedbackState.Entries)
+        {
+            <li>
+                <strong>@item.Name</strong> (@item.Email)
+                <br />
+                @item.Comment
+            </li>
+        }
+    </ul>
+}
+
+<p>
+    <NavLink href="/feedback">Back to Feedback Form</NavLink>
+</p>

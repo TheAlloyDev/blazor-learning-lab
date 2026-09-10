@@ -5,19 +5,29 @@
 
 <h1>Add Recipe</h1>
 
-<input @bind="recipeName" placeholder="Recipe Name" />
-<br />
-<textarea @bind="recipeDescription" placeholder="Recipe Description"></textarea>
-<br />
-<button @onclick="SubmitRecipe">Submit</button>
+<EditForm Model="NewRecipe" OnValidSubmit="SubmitRecipe">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="recipe-name">Recipe Name</label>
+        <InputText id="recipe-name" class="form-control" @bind-Value="NewRecipe.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label for="recipe-description">Recipe Description</label>
+        <InputTextArea id="recipe-description" class="form-control" @bind-Value="NewRecipe.Description" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
 
 <p>
     <NavLink href="/home">Back to Recipes</NavLink>
 </p>
 
 @code {
-    private string recipeName = string.Empty;
-    private string recipeDescription = string.Empty;
+    private Recipe NewRecipe { get; } = new();
 
     private void SubmitRecipe()
     {
@@ -26,9 +36,12 @@
         RecipeStore.Recipes.Add(new Recipe
         {
             Id = nextId,
-            Name = recipeName,
-            Description = recipeDescription
+            Name = NewRecipe.Name,
+            Description = NewRecipe.Description
         });
+
+        NewRecipe.Name = string.Empty;
+        NewRecipe.Description = string.Empty;
 
         NavManager.NavigateTo("/home");
     }

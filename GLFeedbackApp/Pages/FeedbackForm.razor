@@ -1,0 +1,40 @@
+@page "/feedback"
+@inject FeedbackState FeedbackState
+@inject NavigationManager NavigationManager
+
+<PageTitle>Feedback Form</PageTitle>
+
+<h1>Feedback Form</h1>
+
+<EditForm Model="feedback" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="feedback-name">Name</label>
+        <InputText id="feedback-name" class="form-control" @bind-Value="feedback.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label for="feedback-email">Email</label>
+        <InputText id="feedback-email" class="form-control" @bind-Value="feedback.Email" />
+    </div>
+
+    <div class="mb-3">
+        <label for="feedback-comment">Comment</label>
+        <InputTextArea id="feedback-comment" class="form-control" @bind-Value="feedback.Comment" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Feedback</button>
+</EditForm>
+
+@code {
+    private Feedback feedback = new();
+
+    private void HandleSubmit()
+    {
+        FeedbackState.Add(feedback);
+        feedback = new Feedback();
+        NavigationManager.NavigateTo("/feedback/list");
+    }
+}
