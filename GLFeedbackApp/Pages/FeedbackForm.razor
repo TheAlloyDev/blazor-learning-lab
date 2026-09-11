@@ -1,4 +1,5 @@
 @page "/feedback"
+@using System.Threading.Tasks
 @inject FeedbackState FeedbackState
 @inject NavigationManager NavigationManager
 
@@ -6,34 +7,43 @@
 
 <h1>Feedback Form</h1>
 
+@* This form binds directly to the `feedback` object declared in the @code block. *@
 <EditForm Model="feedback" OnValidSubmit="HandleSubmit">
+    @* Enables validation based on attributes defined on the Feedback model. *@
     <DataAnnotationsValidator />
+    @* Displays a summary of any validation errors for the whole form. *@
     <ValidationSummary />
 
-    <div class="mb-3">
-        <label for="feedback-name">Name</label>
-        <InputText id="feedback-name" class="form-control" @bind-Value="feedback.Name" />
+    <div>
+        <label for="name">Name</label>
+        <InputText id="name" @bind-Value="feedback.Name" class="form-control" />
+        <ValidationMessage For="@(() => feedback.Name)" />
     </div>
 
-    <div class="mb-3">
-        <label for="feedback-email">Email</label>
-        <InputText id="feedback-email" class="form-control" @bind-Value="feedback.Email" />
+    <div>
+        <label for="email">Email</label>
+        <InputText id="email" class="form-control" @bind-Value="feedback.Email" />
+        <ValidationMessage For="@(() => feedback.Email)" />
     </div>
 
-    <div class="mb-3">
-        <label for="feedback-comment">Comment</label>
-        <InputTextArea id="feedback-comment" class="form-control" @bind-Value="feedback.Comment" />
+    <div>
+        <label for="comment">Comment</label>
+        <InputTextArea id="comment" class="form-control" @bind-Value="feedback.Comment" />
     </div>
 
     <button type="submit" class="btn btn-primary">Submit Feedback</button>
 </EditForm>
 
 @code {
+    // Holds the current values the user is typing into the form.
     private Feedback feedback = new();
 
-    private void HandleSubmit()
+    // Runs after the form passes validation. Saves the entry, clears the form,
+    // and redirects to the page that shows submitted feedback.
+    private async Task HandleSubmit()
     {
-        FeedbackState.Add(feedback);
+        await FeedbackState.SaveFeedbackAsync(new List<Feedback> { feedback });
+        Console.WriteLine("Feedback submitted: " + feedback.Name);
         feedback = new Feedback();
         NavigationManager.NavigateTo("/feedback/list");
     }

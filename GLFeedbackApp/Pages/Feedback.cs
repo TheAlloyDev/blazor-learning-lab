@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GLFeedbackApp.Pages;
 
+// Represents one feedback entry and defines the validation rules for the form.
 public class Feedback
 {
     [Required(ErrorMessage = "Please fill out your name.")]

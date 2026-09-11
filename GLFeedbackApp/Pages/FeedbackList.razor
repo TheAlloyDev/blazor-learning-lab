@@ -1,28 +1,40 @@
 @page "/feedback/list"
+@using GLFeedbackApp.Pages
 @inject FeedbackState FeedbackState
 
-<PageTitle>Feedback List</PageTitle>
+<h3>Feedback Submission</h3>
 
-<h1>Submitted Feedback</h1>
-
-@if (FeedbackState.Entries.Count == 0)
-{
-    <p>No feedback has been submitted yet.</p>
-}
-else
+@* Show the saved feedback if any entries were loaded from local storage. *@
+@if (FeedbackListItems.Count > 0)
 {
     <ul>
-        @foreach (var item in FeedbackState.Entries)
+        @foreach (var feedback in FeedbackListItems)
         {
             <li>
-                <strong>@item.Name</strong> (@item.Email)
-                <br />
-                @item.Comment
+                <strong>@feedback.Name</strong> (@feedback.Email)
+                (<em>@feedback.Comment</em>)
+                <p>@feedback.Comment</p>
             </li>
         }
     </ul>
+}
+else
+{
+    <p>No feedback has been submitted yet.</p>
 }
 
 <p>
     <NavLink href="/feedback">Back to Feedback Form</NavLink>
 </p>
+
+@code {
+    // Stores the feedback entries displayed by this component.
+    private List<Feedback> FeedbackListItems = new List<Feedback>();
+
+    // Loads saved feedback when the component is first rendered.
+    protected override async Task OnInitializedAsync()
+    {
+        FeedbackListItems = await FeedbackState.LoadFeedbackAsync();
+    }
+}
+
