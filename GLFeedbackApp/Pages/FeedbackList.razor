@@ -1,40 +1,51 @@
 @page "/feedback/list"
-@using GLFeedbackApp.Pages
-@inject FeedbackState FeedbackState
+@using GLFeedbackApp.Models
+@using GLFeedbackApp.Services
+@inject FeedbackService FeedbackService
 
 <h3>Feedback Submission</h3>
 
-@* Show the saved feedback if any entries were loaded from local storage. *@
-@if (FeedbackListItems.Count > 0)
-{
-    <ul>
-        @foreach (var feedback in FeedbackListItems)
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (feedbackListItems.Any())
         {
-            <li>
-                <strong>@feedback.Name</strong> (@feedback.Email)
-                (<em>@feedback.Comment</em>)
-                <p>@feedback.Comment</p>
-            </li>
+            @foreach (var feedback in feedbackListItems)
+            {
+                <tr>
+                    <td>@feedback.Name</td>
+                    <td>@feedback.Email</td>
+                    <td>@feedback.Comment</td>
+                </tr>
+            }
         }
-    </ul>
-}
-else
-{
-    <p>No feedback has been submitted yet.</p>
-}
+        else
+        {
+            <tr>
+                <td colspan="3">No feedback has been submitted yet.</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <p>
     <NavLink href="/feedback">Back to Feedback Form</NavLink>
 </p>
 
 @code {
-    // Stores the feedback entries displayed by this component.
-    private List<Feedback> FeedbackListItems = new List<Feedback>();
+    private List<Feedback> feedbackListItems = [];
 
-    // Loads saved feedback when the component is first rendered.
     protected override async Task OnInitializedAsync()
     {
-        FeedbackListItems = await FeedbackState.LoadFeedbackAsync();
+        feedbackListItems = await FeedbackService.GetFeedbackAsync();
     }
 }
+
+
 

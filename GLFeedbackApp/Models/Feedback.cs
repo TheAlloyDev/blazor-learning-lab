@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace GLFeedbackApp.Pages;
+namespace GLFeedbackApp.Models;
 
 // Represents one feedback entry and defines the validation rules for the form.
 public class Feedback

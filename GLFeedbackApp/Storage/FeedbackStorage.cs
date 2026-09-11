@@ -1,14 +1,15 @@
+using GLFeedbackApp.Models;
 using Microsoft.JSInterop;
 
-namespace GLFeedbackApp.Pages;
+namespace GLFeedbackApp.Storage;
 
 // Handles saving and loading feedback data from the browser's local storage.
-public class FeedbackState
+public class FeedbackStorage
 {
     private readonly IJSRuntime jsRuntime;
 
-    // IJSRuntime lets this C# service call browser JavaScript APIs.
-    public FeedbackState(IJSRuntime jsRuntime)
+    // IJSRuntime lets this C# helper call browser JavaScript APIs.
+    public FeedbackStorage(IJSRuntime jsRuntime)
     {
         this.jsRuntime = jsRuntime;
     }
@@ -32,5 +33,4 @@ public class FeedbackState
         var feedbackList = System.Text.Json.JsonSerializer.Deserialize<List<Feedback>>(json);
         return feedbackList ?? new List<Feedback>();
     }
-
 }

@@ -1,6 +1,8 @@
 @page "/feedback"
 @using System.Threading.Tasks
-@inject FeedbackState FeedbackState
+@using GLFeedbackApp.Models
+@using GLFeedbackApp.Services
+@inject FeedbackService FeedbackService
 @inject NavigationManager NavigationManager
 
 <PageTitle>Feedback Form</PageTitle>
@@ -34,17 +36,25 @@
     <button type="submit" class="btn btn-primary">Submit Feedback</button>
 </EditForm>
 
+@if (isSubmitted)
+{
+    <p>Thank you for your feedback!</p>
+}
+
 @code {
     // Holds the current values the user is typing into the form.
     private Feedback feedback = new();
 
     // Runs after the form passes validation. Saves the entry, clears the form,
     // and redirects to the page that shows submitted feedback.
+    private bool isSubmitted = false;
+
     private async Task HandleSubmit()
     {
-        await FeedbackState.SaveFeedbackAsync(new List<Feedback> { feedback });
+        await FeedbackService.AddFeedbackAsync(feedback);
         Console.WriteLine("Feedback submitted: " + feedback.Name);
         feedback = new Feedback();
+        isSubmitted = true;
         NavigationManager.NavigateTo("/feedback/list");
     }
 }
